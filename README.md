@@ -1,3 +1,6 @@
+### Requirement
+- Minimum Android SDK version: 21
+
 ### Installation
 - Download the  `automate-lock-android-sdk-release.aar` from Github.
 - In Android Studio, go to ```File > New > New Module > Import .JAR/.AAR Package```, choose the AAR file, then click `Finish
