@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements AutomateLockContr
         // initiate the SDK with your SDK key and return the status of initiation
         // you can't use other SDK methods until it has been initiated
         boolean initResult = automateLockController.initialize("[PASTE_YOUR_SDK_KEY_HERE]");
-        Log.i(PROJECT_NAME, initResult ? "true" : "false");
     }
 
     public void connectLock(String macAddress) {
