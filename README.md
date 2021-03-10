@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements AutomateLockContr
     public void connectLock(String macAddress) {
       // return true after the lock connection request has been sent
       // return false if the SDK hasn't been initiated or SDK key is invalid
-      boolean connectResult = automateLockController.connectLock(this, mac);
+      boolean connectResult = automateLockController.connectLock(this, macAddress);
     }
 
     public void openLock(String macAddress, String password) {
