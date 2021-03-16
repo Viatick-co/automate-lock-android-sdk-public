@@ -9,9 +9,9 @@
 - Open the app module's `build.gradle` file and add new lines to the dependencies block as shown in the following snippet:
 
 ```gradle
+	implementation 'no.nordicsemi.android.support.v18:scanner:1.4.2'
+    implementation "com.android.volley:volley:1.1.0+"
     implementation project(':automate-lock-android-sdk-release')
-    implementation "com.android.support:design:27.1.1"
-    implementation "com.squareup.picasso:picasso:2.7+"
 ```
 
 ##### The ```dependencies``` block now might look like:
@@ -26,7 +26,9 @@ dependencies {
 
     // another dependencies
 
-    // bms dependencies
+    // automate lock sdk dependencies
+    implementation 'no.nordicsemi.android.support.v18:scanner:1.4.2'
+    implementation "com.android.volley:volley:1.1.0+"
     implementation project(':automate-lock-android-sdk-release')
     implementation "com.android.support:design:27.1.1"
     implementation "com.squareup.picasso:picasso:2.7+"
@@ -49,12 +51,14 @@ public class MainActivity extends AppCompatActivity implements AutomateLockContr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // set delegate to be the current activity to receive onConnect and onOpen callbacks
-        automateLockController.setDelegate(this);
-
-        // initiate the SDK with your SDK key and return the status of initiation
+        // initiate the SDK with your SDK key
+        // status of initiation is returned inside the onInit callback below
         // you can't use other SDK methods until it has been initiated
-        boolean initResult = automateLockController.initialize("[PASTE_YOUR_SDK_KEY_HERE]");
+        automateLockController.initialize("[PASTE_YOUR_SDK_KEY_HERE]");
+
+        // set delegate to be the current activity to receive onConnect and onOpen callbacks
+        // it needs to be called after automateLockController.initialize
+        automateLockController.setDelegate(this);
     }
 
     public void connectLock(String macAddress) {
@@ -74,6 +78,12 @@ public class MainActivity extends AppCompatActivity implements AutomateLockContr
       // return true after the lock has been disconnected (or if no lock is connected)
       // return false if the SDK hasn't been initiated or SDK key is invalid
       boolean disconnectResult = automateLockController.disconnectLock();
+    }
+
+    // return whether SDK initiation is successful or failed
+    @Override
+    public void onInit(boolean success) {
+        Log.i(PROJECT_NAME, "onInit: " + (success ? "true" : "false"));
     }
 
     // trigger upon a lock successfully connected or fail
