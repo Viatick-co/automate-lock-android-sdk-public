@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements AutomateLockContr
         // initiate the SDK with your SDK key
         // status of initiation is returned inside the onInit callback below
         // you can't use other SDK methods until it has been initiated
-        automateLockController.initialize("[PASTE_YOUR_SDK_KEY_HERE]");
+        automateLockController.initialize(this, "[PASTE_YOUR_SDK_KEY_HERE]");
 
         // set delegate to be the current activity to receive onConnect and onOpen callbacks
         // it needs to be called after automateLockController.initialize
@@ -90,6 +90,8 @@ public class MainActivity extends AppCompatActivity implements AutomateLockContr
     @Override
     public void onConnect(String s, boolean success) {
         Log.i(PROJECT_NAME, "onConnect: " + (success ? "true" : "false"));
+
+				// you can choose to trigger openLock after this returns true
     }
 
     // trigger upon a lock successfully opened or fail
